@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>monitor</title>
+    <style>
+         .formdata {
+            max-width: 500px;
+            margin: auto;
+            padding: 10px;
+         }
+         .formlabel{
+            margin-top: 15px;
+            display: inline-block;
+            width: 200px;
+         }
+         .margintopcss{
+            margin-top: 15px;
+         }
+    </style>
+</head>
+<body>
+<div align="center" class="formdata">
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <div>
+            <label class="formlabel">Username</label>
+            <input type="text" th:field="*{username}"  required="required" placeholder="Enter Username">
+        </div>
+        <div>
+            <label class="formlabel" >Password</label>
+            <input type="password" th:field="*{password}" required="required" placeholder="Enter Password">
+        </div>
+        <div>
+            <label class="formlabel"></label>
+            <input type="submit" class="margintopcss" value="Register">
+        </div>
+    </form>
+</div>
+<div align="center">
+    <table>
+        <tr>
+            <td>
+                <label class="margintopcss">Registered ?</label>
+            </td>
+            <td>
+                <a th:href="@{/}">Login</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
