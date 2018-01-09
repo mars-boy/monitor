@@ -21,6 +21,9 @@
             margin-top: 15px;
          }
     </style>
+    <!--JQuery CDN Import-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script th:src="@{/js/registration/registration.js}"></script>
 </head>
 <body>
 <div align="center" class="formdata">
@@ -34,10 +37,15 @@
             <input type="password" th:field="*{password}" required="required" placeholder="Enter Password">
         </div>
         <div>
+            <label class="formlabel" >Reenter Password</label>
+            <input type="password"  id="confirmpassword" required="required" placeholder="Reenter Password">
+        </div>
+        <div>
             <label class="formlabel"></label>
-            <input type="submit" class="margintopcss" value="Register">
+            <input type="submit" id="submitform" class="margintopcss" value="Register">
         </div>
     </form>
+    <span th:utext="${message}"></span>
 </div>
 <div align="center">
     <table>
