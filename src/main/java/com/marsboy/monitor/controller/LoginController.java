@@ -4,6 +4,8 @@ import com.marsboy.monitor.model.Roles;
 import com.marsboy.monitor.model.User;
 import com.marsboy.monitor.service.MonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class LoginController {
     private MonitorService monitorService;
 
     /* Getting request during startup to redirect to login page */
-    @RequestMapping(value = {"/","login"},method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public String goLogin(Model model){
         return "login";
     }
@@ -40,7 +42,10 @@ public class LoginController {
 
     /* On successful login user redirects to homepage*/
     @RequestMapping(value = "/common/home",method = RequestMethod.GET)
-    public String login(){
+    public String login(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = monitorService.getUserByUserName(authentication.getName()).get(0);
+        model.addAttribute("user",user);
         return "common/home";
     }
 
@@ -82,5 +87,18 @@ public class LoginController {
                 return "registration";
             }
         }
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(@RequestParam(value = "error",required = false) String error,
+                              @RequestParam(value = "logout",required = false) String logout,Model model){
+        if(error!=null){
+            model.addAttribute("message","invalid username or password");
+        }
+        if(logout!=null){
+            model.addAttribute("message","Logout successful");
+        }
+        model.addAttribute("user",new User());
+        return "login";
     }
 }

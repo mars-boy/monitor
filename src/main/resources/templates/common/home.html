@@ -1,9 +1,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <p>home page</p>
-</body>
+    <head>
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            li {
+                float: left;
+            }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            li a:hover:not(.active) {
+                background-color: #111;
+            }
+
+            .active {
+                background-color: #4CAF50;
+            }
+            div.container{
+                top: 1px;
+                display: block;
+                color: black;
+                height: 90%;
+                width: 100%;
+                position: relative;
+                border: 1px solid;
+            }
+            div.leftdiv{
+                position: absolute;
+                float: left;
+                height: 100%;
+                width: 15%;
+                display: block;
+                border: 1px solid;
+            }
+            div.rightdiv{
+                float: right;
+                height: 70%;
+                width: 85%;
+                display: block;
+                border: 1px solid;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#news">Dashboard</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li style="float:right"><a class="active" th:href="@{/logout}">Logout</a></li>
+        </ul>
+        <div class="container">
+            <div class="leftdiv">
+
+            </div>
+            <div class="rightdiv">
+
+            </div>
+        </div>
+    </body>
 </html>
