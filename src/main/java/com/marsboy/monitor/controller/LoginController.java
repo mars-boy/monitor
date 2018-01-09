@@ -45,7 +45,7 @@ public class LoginController {
     }
 
     /* Check if username is available ajax request from JQuery */
-    @RequestMapping(value = "/chkuser",method = RequestMethod.POST)
+    @RequestMapping(value = "/ajax/chkuser",method = RequestMethod.GET)
     @ResponseBody
     public String checkUsernameExists(@RequestParam("username") String username){
         List<User> userList = monitorService.getUserByUserName(username);

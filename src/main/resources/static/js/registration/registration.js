@@ -5,13 +5,12 @@ $(document).ready(function(){
         var username=$('#username').val();
         if(username != ""){
             $.ajax({
-                    url : "chkuser?username="+username,
-                    type : "post",
+                    url : '/ajax/chkuser?username='+username,
+                    type : 'GET',
                     async : false,
-                    success : function(data) {
-                        alert(data);
-                        if(data == 'found'){
-                           alert("username exists");
+                    success : function(response) {
+                        if(response == 'found'){
+                           alert("username exists please try another");
                         }else{
 
                         }
@@ -44,7 +43,7 @@ function validateUserRegistration(){
     var username = $('#username').val();
     if(usernmae != ""){
         $.ajax({
-                url : "chkuser?username="+username,
+                url : "/ajax/chkuser?username="+username,
                 type : "post",
                 async : false,
                 success : function(data) {

@@ -22,7 +22,6 @@ public class UserDaoImpl extends AbstractDesignDaoImpl<User,Long> implements Use
         Query query = getCurrentSession().createQuery("from User where username=:username");
         query.setString("username",username);
         List<User> userList = query.list();
-        System.out.println("Came to ghost space");
         if(userList != null ) {
             return userList;
         }
