@@ -1,5 +1,7 @@
 package com.marsboy.monitor.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ public class Expenses implements java.io.Serializable {
 	private Categories categories;
 	private User user;
 	private String description;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date actionmadedate;
 	private boolean status;
 

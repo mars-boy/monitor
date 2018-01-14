@@ -74,17 +74,31 @@
 
                         <!-- Modal content-->
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Modal Header</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Some text in the modal.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
+                            <form  id="expenses-form-id-mine" th:action="@{/ajax/addExpense}" th:object="${expenses}" method="post">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Expense.</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="category-select-mine">Select Category.</label>
+                                    <select class="form-control" id="category-select-mine"
+                                            onmousedown="if(this.options.length>5){this.size=5;}"
+                                            onchange="this.blur()"  onblur="this.size=0;" th:field="*{categories.categoryid}">
+                                        <option th:each="cat : ${categories}" th:value="${cat.categoryid}"
+                                                th:text="${cat.categoryname}" >Wireframe</option>
+                                    </select>
+                                    <label for="description-mine">Description.</label>
+                                    <input type="text" class="form-control" id="description-mine"
+                                           aria-describedby="emailHelp" th:field="*{description}" placeholder="Enter Description.">
+                                    <label for="date-description-mine">Date</label>
+                                    <input type="date" class="form-control" id="date-description-mine"
+                                           aria-describedby="emailHelp" th:field="*{actionmadedate}" placeholder="Enter Date">
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" id="submit-model-data-mine" class="btn btn-default" value="Add">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
@@ -92,16 +106,19 @@
             </div>
         </div>
         <div class="row">
+            <p>  </p>
+        </div>
+        <div class="row">
             <div class="col-sm-4">
-                <label for="datefilter">Select Date</label>
-                <input type="text" class="datefilter" id="datefilter" value="" />
+                <label>Select Data </label>
+                <div class="input-group">
+                    <input type="text" class="form-control datefilter">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Get Data</button>
+                    </span>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <button class="btn btn-default">Get data</button>
-            </div>
-            <div class="com-sm-6">
-
-            </div>
+            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <p>    </p>

@@ -1,7 +1,6 @@
 package com.marsboy.monitor.implementation;
 
 import com.marsboy.monitor.dao.UserDao;
-import com.marsboy.monitor.model.Roles;
 import com.marsboy.monitor.model.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -24,17 +23,6 @@ public class UserDaoImpl extends AbstractDesignDaoImpl<User,Long> implements Use
         List<User> userList = query.list();
         if(userList != null ) {
             return userList;
-        }
-        return null;
-    }
-
-    @Override
-    public Roles getRoleByName(String roleName) {
-        Query query = getCurrentSession().createQuery("from Roles where rolename=:rolename");
-        query.setString("rolename",roleName);
-        List<Roles> userList = query.list();
-        if(userList.size()>0) {
-            return userList.get(0);
         }
         return null;
     }

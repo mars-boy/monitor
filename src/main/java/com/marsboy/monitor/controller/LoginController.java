@@ -81,7 +81,7 @@ public class LoginController {
                 user.setPassword(bCryptPasswordEncoder.encode(password));
                 user.setActive(true);
                 user.setRoles(role);
-                monitorService.saveOrupdate(user);
+                monitorService.saveOrupdateUser(user);
                 model.addAttribute("message","User Creation Successful.");
                 model.addAttribute("user",new User());
                 return "registration";
