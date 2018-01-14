@@ -29,11 +29,15 @@ public class ExpensesController {
 
     @RequestMapping(value = "/expenses")
     public String toExpensesPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = monitorService.getUserByUserName(authentication.getName()).get(0);
         List<Categories>  categoriesList = monitorService.getAllCategories();
         model.addAttribute("expenses",new Expenses());
         if(categoriesList != null) {
             model.addAttribute("categories",categoriesList);
         }
+        List<Expenses> expensesList = monitorService.getAllExpensesActive(user.getUserid());
+        model.addAttribute("expensesList",expensesList);
         return "common/expensespage";
     }
 

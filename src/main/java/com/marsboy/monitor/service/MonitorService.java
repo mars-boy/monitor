@@ -48,4 +48,8 @@ public class MonitorService {
     public void saveExpense(Expenses expenses) {
         expensesDao.save(expenses);
     }
+
+    public List<Expenses> getAllExpensesActive(Long userId) {
+        return expensesDao.getAllExpensesActive(userId);
+    }
 }
