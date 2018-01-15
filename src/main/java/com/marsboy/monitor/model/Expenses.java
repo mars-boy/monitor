@@ -1,57 +1,61 @@
 package com.marsboy.monitor.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
 @Table(name = "expenses", catalog = "monitor")
 public class Expenses implements java.io.Serializable {
 
-	private int expensesid;
+	private Integer expensesid;
 	private Categories categories;
 	private User user;
+	private int amount;
 	private String description;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@org.springframework.format.annotation.DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date actionmadedate;
 	private boolean status;
 
 	public Expenses() {
 	}
 
-	public Expenses(int expensesid, User user, Date actionmadedate, boolean status) {
-		this.expensesid = expensesid;
+	public Expenses(User user, int amount, Date actionmadedate, boolean status) {
 		this.user = user;
+		this.amount = amount;
 		this.actionmadedate = actionmadedate;
 		this.status = status;
 	}
 
-	public Expenses(int expensesid, Categories categories, User user, String description, Date actionmadedate,
+	public Expenses(Categories categories, User user, int amount, String description, Date actionmadedate,
 			boolean status) {
-		this.expensesid = expensesid;
 		this.categories = categories;
 		this.user = user;
+		this.amount = amount;
 		this.description = description;
 		this.actionmadedate = actionmadedate;
 		this.status = status;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "expensesid", unique = true, nullable = false)
-	public int getExpensesid() {
+	public Integer getExpensesid() {
 		return this.expensesid;
 	}
 
-	public void setExpensesid(int expensesid) {
+	public void setExpensesid(Integer expensesid) {
 		this.expensesid = expensesid;
 	}
 
@@ -73,6 +77,15 @@ public class Expenses implements java.io.Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Column(name = "amount", nullable = false)
+	public int getAmount() {
+		return this.amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	@Column(name = "description", length = 45)
