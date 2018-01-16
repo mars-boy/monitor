@@ -1,5 +1,8 @@
 package com.marsboy.monitor.controller;
 
+import com.google.gson.Gson;
+import com.marsboy.monitor.model.Categories;
+import com.marsboy.monitor.model.Expenses;
 import com.marsboy.monitor.model.Roles;
 import com.marsboy.monitor.model.User;
 import com.marsboy.monitor.service.MonitorService;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -43,9 +48,19 @@ public class LoginController {
     /* On successful login user redirects to homepage*/
     @RequestMapping(value = "/common/home",method = RequestMethod.GET)
     public String login(Model model){
+        Gson gson = new Gson();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = monitorService.getUserByUserName(authentication.getName()).get(0);
+        List<Categories>  categoriesList = monitorService.getAllCategories();
+        List<Expenses> categoryExpense = monitorService.getUserExpenseToCategoryActive(user.getUserid());
+        Map<String , Integer> catExpMap = new HashMap<String, Integer>();
+        for(int i = 0;i < categoryExpense.size();i++){
+            catExpMap.put(categoryExpense.get(i).getCategories().getCategoryname(),categoryExpense.get(i).getAmount());
+        }
+        System.out.println(gson.toJson(catExpMap).toString());
         model.addAttribute("user",user);
+        model.addAttribute("categorylist",categoriesList);
+        model.addAttribute("categoryExpense",gson.toJson(catExpMap));
         return "common/home";
     }
 

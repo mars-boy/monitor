@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -51,5 +52,9 @@ public class MonitorService {
 
     public List<Expenses> getAllExpensesActive(Long userId) {
         return expensesDao.getAllExpensesActive(userId);
+    }
+
+    public List<Expenses> getUserExpenseToCategoryActive(Long userId) {
+        return expensesDao.getUserExpenseToCategoryActive(userId);
     }
 }

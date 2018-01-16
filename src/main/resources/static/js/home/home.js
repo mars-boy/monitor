@@ -3,14 +3,16 @@ $(document).ready(function(){
     $('#chart-generation-button').click(function(e){
         data = [];
         labels = [];
-        var expectedChecks = 5;
+        var nonDeserialisedjson = $("#categoryExpense").val();
+        var myData = jQuery.parseJSON(nonDeserialisedjson);
+        var expectedChecks = $('input.form-check-input').length;
         for(i = 0; i < expectedChecks;i++){
             var chkboxname = "#cat-"+i;
             if ($(chkboxname).is(":checked")){
                 var temp = $(chkboxname).val();
                 labels.push(temp);
-                var randomnumber = Math.floor(Math.random() * (100 + 1) + 0);
-                data.push(randomnumber);
+                var amount_expense = myData[temp];
+                data.push(amount_expense);
             }
         }
         var selectedChart = $("#chart-box option:selected").val();
@@ -19,20 +21,15 @@ $(document).ready(function(){
 });
 
 function loadDefaultChart(){
-    var ctx = $("#myChart").get(0).getContext("2d");
-    var piechart = new Chart(ctx,{
-        type: 'pie',
-        data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-                label: "My First dataset",
-                data: [0, 10, 5, 2, 20, 30, 45],
-            }]
-        },
-        options: {
-            responsive: false
-        }
-    });
+    data = [];
+    labels = [];
+    var nonDeserialisedjson = $("#categoryExpense").val();
+    var myData = jQuery.parseJSON(nonDeserialisedjson);
+    for(key in myData){
+        labels.push(key);
+        data.push(myData[key]);
+    }
+    loadChart(labels,data,"pie");
 }
 
 function loadChart(labels,data,selectedChart){
@@ -52,4 +49,8 @@ function loadChart(labels,data,selectedChart){
             responsive: false
         }
     });
+}
+
+function parseJSON(data) {
+    return window.JSON && window.JSON.parse ? window.JSON.parse( data ) : (new Function("return " + data))();
 }
