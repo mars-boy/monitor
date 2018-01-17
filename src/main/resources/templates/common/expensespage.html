@@ -61,11 +61,6 @@
     </div>
     <div class="col-sm-9">
         <div class="row">
-            <div class="jumbotron">
-                <h3>Expenses</h3>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-sm-10"></div>
             <div class="col-sm-2">
                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add data</button>
@@ -129,34 +124,34 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="data-table-space-mine">
-                    <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>SNo</th>
-                            <th>ExpenseId</th>
-                            <th>Category</th>
-                            <th>Amount</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>SNo</th>
-                            <th>ExpenseId</th>
-                            <th>Category</th>
-                            <th>Amount</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </tfoot>
+                    <div id="expAjaxListIdMine">
+                        <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>SNo</th>
+                                <th>ExpenseId</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>SNo</th>
+                                <th>ExpenseId</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </tfoot>
 
-                        <tbody>
-                        <div id="table-data-mine">
+                            <tbody>
                             <tr th:each="expense,iterationStatus  : ${expensesList}">
                                 <td th:text="${iterationStatus.count}"></td>
                                 <td th:text="${expense.expensesid}"></td>
@@ -176,9 +171,9 @@
                                                               data-title="Delete" data-toggle="modal"
                                                               data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
                             </tr>
-                        </div>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -68,10 +68,9 @@ public class ExpensesController {
         return "success";
     }
 
-    @RequestMapping(value="/ajax/getExpenseBetweenDates")
-    @ResponseBody
-    public List<Expenses> getExpenseBtwDates(@RequestParam String from,
-                                       @RequestParam String to){
+    @RequestMapping(value="/ajax/getExpenseBetweenDates",method = RequestMethod.POST)
+    public String getExpenseBtwDates(Model model,@RequestParam String from,@RequestParam String to){
+        /*String to = "01/09/2018";*/
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = monitorService.getUserByUserName(authentication.getName()).get(0);
         from = DateFormat.convertmmddyyyyToSqlFormat(from);
@@ -88,6 +87,7 @@ public class ExpensesController {
             categories.setCategoryname(categoryMap.get(expensesList.get(i).getCategories().getCategoryid()));
             expensesList.get(i).setCategories(categories);
         }
-        return expensesList;
+        model.addAttribute("expensesLst",expensesList);
+        return "common/expensedataajax :: resultsList";
     }
 }

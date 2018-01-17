@@ -7,14 +7,7 @@ $(document).ready(function(){
     $('#get-data-btw-dates-mine').click(function(e){
         var date_mine = $('#datefilter-mine').val();
         var dates = date_mine.split("-");
-        $.ajax({
-            url: "ajax/getExpenseBetweenDates?from="+dates[0]+"&to="+dates[1],
-            type: "POST",
-            dataType: "json",
-            success: function(result){
-                /*No result coming*/
-            }
-        });
+        getDataTableData("/ajax/getExpenseBetweenDates",{from: dates[0],to: dates[1]},"datatable","expAjaxListIdMine");
     })
 });
 
@@ -35,4 +28,11 @@ function validateModelData(){
           }
     });
     return false;
+}
+
+function getDataTableData(url,data,datatableId,loadToId){
+    $('#'+datatableId).DataTable().destroy();
+    $("#"+loadToId).load(url,data,function(){
+        $('#'+datatableId).dataTable();
+    });
 }
