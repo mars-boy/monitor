@@ -4,6 +4,18 @@ $(document).ready(function(){
     $('#submit-model-data-mine').click(function(e){
         return validateModelData();
     })
+    $('#get-data-btw-dates-mine').click(function(e){
+        var date_mine = $('#datefilter-mine').val();
+        var dates = date_mine.split("-");
+        $.ajax({
+            url: "ajax/getExpenseBetweenDates?from="+dates[0]+"&to="+dates[1],
+            type: "POST",
+            dataType: "json",
+            success: function(result){
+                /*No result coming*/
+            }
+        });
+    })
 });
 
 function loaddatefilter(){

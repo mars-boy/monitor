@@ -1,7 +1,9 @@
 package com.marsboy.monitor.controller;
 
+import com.marsboy.monitor.common.DateFormat;
 import com.marsboy.monitor.model.Categories;
 import com.marsboy.monitor.model.Expenses;
+import com.marsboy.monitor.model.Response;
 import com.marsboy.monitor.model.User;
 import com.marsboy.monitor.service.MonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,5 +66,28 @@ public class ExpensesController {
         expenses.setUser(user);
         monitorService.saveExpense(expenses);
         return "success";
+    }
+
+    @RequestMapping(value="/ajax/getExpenseBetweenDates")
+    @ResponseBody
+    public List<Expenses> getExpenseBtwDates(@RequestParam String from,
+                                       @RequestParam String to){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = monitorService.getUserByUserName(authentication.getName()).get(0);
+        from = DateFormat.convertmmddyyyyToSqlFormat(from);
+        to = DateFormat.convertmmddyyyyToSqlFormat(to);
+        List<Expenses> expensesList = monitorService.getAllExpensesActiveFromTo(user.getUserid(),from,to);
+        Map<Integer,String> categoryMap = new HashMap<Integer, String>();
+        List<Categories>  categoriesList = monitorService.getAllCategories();
+        for(int i = 0; i < categoriesList.size();i++){
+            categoryMap.put(categoriesList.get(i).getCategoryid(),categoriesList.get(i).getCategoryname());
+        }
+        for(int i = 0; i < expensesList.size();i++) {
+            Categories categories = new Categories();
+            categories.setCategoryid(expensesList.get(i).getCategories().getCategoryid());
+            categories.setCategoryname(categoryMap.get(expensesList.get(i).getCategories().getCategoryid()));
+            expensesList.get(i).setCategories(categories);
+        }
+        return expensesList;
     }
 }

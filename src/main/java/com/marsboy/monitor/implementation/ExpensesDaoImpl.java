@@ -45,4 +45,11 @@ public class ExpensesDaoImpl extends AbstractDesignDaoImpl<Expenses,Integer> imp
         }
         return expensesList;
     }
+
+    @Override
+    public List<Expenses> getAllExpensesActiveFromTo(Long userid, String from, String to) {
+        Query query = getCurrentSession().createQuery("from Expenses exp where exp.status = 1 and exp.user = ? and actionmadedate between ? and ?").
+                setLong(0, userid).setString(1,from).setString(2,to);
+        return query.list();
+    }
 }

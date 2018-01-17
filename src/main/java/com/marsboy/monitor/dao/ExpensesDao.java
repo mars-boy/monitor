@@ -11,4 +11,6 @@ public interface ExpensesDao extends AbstractDesignDao<Expenses,Integer> {
     List<Expenses> getAllExpensesActive(Long userId);
 
     List<Expenses> getUserExpenseToCategoryActive(Long userId);
+
+    List<Expenses> getAllExpensesActiveFromTo(Long userid, String from, String to);
 }

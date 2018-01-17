@@ -85,7 +85,7 @@
                                             onmousedown="if(this.options.length>5){this.size=5;}"
                                             onchange="this.blur()"  onblur="this.size=0;" th:field="*{categories.categoryid}">
                                         <option th:each="cat : ${categories}" th:value="${cat.categoryid}"
-                                                th:text="${cat.categoryname}" >Wireframe</option>
+                                                th:text="${cat.categoryname}" ></option>
                                     </select>
                                     <label for="description-mine">Description.</label>
                                     <input type="text" class="form-control" id="description-mine"
@@ -115,9 +115,9 @@
             <div class="col-sm-4">
                 <label>Select Data </label>
                 <div class="input-group">
-                    <input type="text" class="form-control datefilter">
+                    <input type="text" class="form-control datefilter" id="datefilter-mine">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Get Data</button>
+                        <button class="btn btn-default" type="button" id="get-data-btw-dates-mine">Get Data</button>
                     </span>
                 </div>
             </div>
@@ -156,25 +156,27 @@
                         </tfoot>
 
                         <tbody>
-                        <tr th:each="expense,iterationStatus  : ${expensesList}">
-                            <td th:text="${iterationStatus.count}"></td>
-                            <td th:text="${expense.expensesid}"></td>
-                            <td th:text="${expense.categories.categoryname}"></td>
-                            <td th:text="${expense.amount}"></td>
-                            <td th:text="${expense.description}"></td>
-                            <td th:text="${expense.actionmadedate}"></td>
-                            <td><p data-placement="top" data-toggle="tooltip"
-                                   title="Edit"><button class="btn btn-primary btn-xs"
-                                                        data-title="Edit" data-toggle="modal"
-                                                        data-target="#edit" th:id="'editExpense-'+${expense.expensesid}">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button></p>
-                            </td>
-                            <td><p data-placement="top" data-toggle="tooltip"
-                                   title="Delete"><button class="btn btn-danger btn-xs"
-                                                          data-title="Delete" data-toggle="modal"
-                                                          data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                        </tr>
+                        <div id="table-data-mine">
+                            <tr th:each="expense,iterationStatus  : ${expensesList}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td th:text="${expense.expensesid}"></td>
+                                <td th:text="${expense.categories.categoryname}"></td>
+                                <td th:text="${expense.amount}"></td>
+                                <td th:text="${expense.description}"></td>
+                                <td th:text="${expense.actionmadedate}"></td>
+                                <td><p data-placement="top" data-toggle="tooltip"
+                                       title="Edit"><button class="btn btn-primary btn-xs"
+                                                            data-title="Edit" data-toggle="modal"
+                                                            data-target="#edit" th:id="'editExpense-'+${expense.expensesid}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button></p>
+                                </td>
+                                <td><p data-placement="top" data-toggle="tooltip"
+                                       title="Delete"><button class="btn btn-danger btn-xs"
+                                                              data-title="Delete" data-toggle="modal"
+                                                              data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            </tr>
+                        </div>
                         </tbody>
                     </table>
                 </div>

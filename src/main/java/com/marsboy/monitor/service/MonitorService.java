@@ -57,4 +57,8 @@ public class MonitorService {
     public List<Expenses> getUserExpenseToCategoryActive(Long userId) {
         return expensesDao.getUserExpenseToCategoryActive(userId);
     }
+
+    public List<Expenses> getAllExpensesActiveFromTo(Long userid, String from, String to) {
+        return expensesDao.getAllExpensesActiveFromTo(userid,from,to);
+    }
 }

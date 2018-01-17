@@ -24,7 +24,20 @@ public class DateFormat {
 		String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(date);
 		return modifiedDate;
 	}
-	
+
+	public static String convertmmddyyyyToSqlFormat(String dateStr){
+		String result = "";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		try {
+			Date dt = simpleDateFormat.parse(dateStr);
+			simpleDateFormat.applyPattern("yyyy-MM-dd");
+			result = simpleDateFormat.format(dt);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	public static String convertDate(String dateField){
 		String res="";
 		try{
